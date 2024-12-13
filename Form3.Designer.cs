@@ -76,7 +76,7 @@
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.button4.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(558, 29);
+            this.button4.Location = new System.Drawing.Point(548, 29);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(114, 31);
             this.button4.TabIndex = 6;
