@@ -171,6 +171,7 @@
             this.button4.TabIndex = 14;
             this.button4.Text = "Обновить";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // dataGridView1
             // 
@@ -199,6 +200,7 @@
             this.button5.TabIndex = 17;
             this.button5.Text = "Удалить";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Form4
             // 

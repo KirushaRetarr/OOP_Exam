@@ -218,5 +218,56 @@ namespace OOP_Exam
                 }
             }
         }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                // Перезагружаем данные в DataGridView
+                LoadData();
+                MessageBox.Show("Данные обновлены!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при обновлении данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Проверяем, выделена ли строка
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    // Получаем ID компонента из выделенной строки
+                    int selectedId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["id"].Value);
+
+                    // Удаляем строку из базы данных
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        string query = "DELETE FROM components WHERE id = @id";
+                        using (SqlCommand command = new SqlCommand(query, connection))
+                        {
+                            command.Parameters.AddWithValue("@id", selectedId);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Перезагружаем данные в таблице
+                    LoadData();
+                    MessageBox.Show("Запись успешно удалена!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при удалении: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
