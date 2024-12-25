@@ -42,8 +42,6 @@ namespace OOP_Exam
             }
         }
 
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             Form3 newForm = new Form3();
@@ -221,15 +219,29 @@ namespace OOP_Exam
 
         private void button4_Click_1(object sender, EventArgs e)
         {
-            try
+            // Проверяем, выбрана ли строка
+            if (dataGridView1.SelectedRows.Count == 0)
             {
-                // Перезагружаем данные в DataGridView
-                LoadData();
-                MessageBox.Show("Данные обновлены!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Пожалуйста, выберите строку для изменения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception ex)
+
+            // Получаем выбранную строку
+            DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+
+            // Получаем данные из выбранной строки
+            int id = Convert.ToInt32(selectedRow.Cells["id"].Value); // Предполагается, что в таблице есть поле id
+            string name = selectedRow.Cells["name"].Value.ToString();
+            string type = selectedRow.Cells["type"].Value.ToString();
+            decimal price = Convert.ToDecimal(selectedRow.Cells["price"].Value);
+
+            // Открываем окно редактирования
+            FormEdit formEdit = new FormEdit(id, name, type, price);
+            if (formEdit.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show($"Ошибка при обновлении данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Если изменения подтверждены, перезагружаем данные
+                LoadData();
+                MessageBox.Show("Данные успешно обновлены!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -267,6 +279,37 @@ namespace OOP_Exam
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при удалении: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Form4_Resize(object sender, EventArgs e)
+        {
+            int formWidth = this.ClientSize.Width;
+            int formHeight = this.ClientSize.Height;
+
+            if (formWidth <= 750)
+            {
+                textBox1.Top = label1.Bottom;
+                textBox1.Left = (formWidth - textBox1.Width) / 2;
+                button2.Top = textBox1.Bottom;
+                button2.Left = (formWidth - button2.Width) / 2;
+                comboBox1.Top = button2.Bottom;
+                textBox2.Location = new System.Drawing.Point(12, 120);
+                dataGridView1.Location = new System.Drawing.Point(197, 120);
+                textBox3.Top = textBox2.Bottom;
+                textBox5.Top = textBox3.Bottom;
+            }
+            else
+            {
+                button2.Location = new System.Drawing.Point(670, 13);
+                button2.Left = formWidth - button2.Width - 20;
+                textBox1.Location = new System.Drawing.Point(482, 19);
+                textBox1.Left = formWidth - textBox1.Width - 130;
+                comboBox1.Top = button2.Top + 5;
+                textBox2.Location = new System.Drawing.Point(12, 94);
+                dataGridView1.Location = new System.Drawing.Point(197, 86);
+                textBox3.Top = textBox2.Top + 30;
+                textBox5.Top = textBox3.Top + 30;
             }
         }
     }
