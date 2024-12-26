@@ -29,15 +29,12 @@ namespace OOP_Exam
         {
             int formWidth = this.ClientSize.Width;
             int formHeight = this.ClientSize.Height;
-
             // Центрируем label2
             label2.Left = (formWidth - label2.Width) / 2;
             label2.Top = (formHeight) / 2 - 100;
-
             // Центрируем label3
             label3.Left = (formWidth - label3.Width) / 2;
             label3.Top = label2.Bottom + 20;
-
             if (formWidth <= 490)
             {
                 label3.Visible = false;
@@ -55,7 +52,6 @@ namespace OOP_Exam
             {
                 label2.Visible = true;
             }
-
             // Логика для кнопки и логотипа
             if (formWidth <= 410)
             {

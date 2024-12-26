@@ -21,14 +21,26 @@ namespace OOP_Exam
             this.Load += new System.EventHandler(this.Form4_Load);
         }
 
+        // Метод для проверки наличия специальных символов
+        private bool IsValidInput(string input)
+        {
+            // Проверяем, что строка содержит только буквы, цифры и пробелы
+            foreach (char c in input)
+            {
+                if (!char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void Form4_Load(object sender, EventArgs e)
         {
             // Наполнение comboBox1
             comboBox1.Items.AddRange(new string[] { "name", "type", "price" });
             comboBox1.SelectedIndex = 0;
 
-            // Загрузка данных в DataGridView
-            LoadData();
         }
         private void LoadData()
         {
@@ -51,7 +63,7 @@ namespace OOP_Exam
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            if (textBox1.Text == "поиск")
+            if (textBox1.Text == "Intel")
             {
                 textBox1.Text = "";
                 textBox1.ForeColor = Color.Black;
@@ -62,62 +74,8 @@ namespace OOP_Exam
         {
             if (textBox1.Text == "")
             {
-                textBox1.Text = "поиск";
+                textBox1.Text = "Intel";
                 textBox1.ForeColor = Color.Silver;
-            }
-        }
-
-        private void textBox2_Enter(object sender, EventArgs e)
-        {
-            if (textBox2.Text == "name")
-            {
-                textBox2.Text = "";
-                textBox2.ForeColor = Color.Black;
-            }
-        }
-
-        private void textBox2_Leave(object sender, EventArgs e)
-        {
-            if (textBox2.Text == "")
-            {
-                textBox2.Text = "name";
-                textBox2.ForeColor = Color.Silver;
-            }
-        }
-
-        private void textBox3_Enter(object sender, EventArgs e)
-        {
-            if (textBox3.Text == "type")
-            {
-                textBox3.Text = "";
-                textBox3.ForeColor = Color.Black;
-            }
-        }
-
-        private void textBox3_Leave(object sender, EventArgs e)
-        {
-            if (textBox3.Text == "")
-            {
-                textBox3.Text = "type";
-                textBox3.ForeColor = Color.Silver;
-            }
-        }
-
-        private void textBox5_Enter(object sender, EventArgs e)
-        {
-            if (textBox5.Text == "price")
-            {
-                textBox5.Text = "";
-                textBox5.ForeColor = Color.Black;
-            }
-        }
-            
-        private void textBox5_Leave(object sender, EventArgs e)
-        {
-            if (textBox5.Text == "")
-            {
-                textBox5.Text = "price";
-                textBox5.ForeColor = Color.Silver;
             }
         }
 
@@ -163,6 +121,13 @@ namespace OOP_Exam
             string type = textBox3.Text.Trim();
             string priceText = textBox5.Text.Trim();
 
+            // Проверяем наличие специальных символов
+            if (!IsValidInput(name) || !IsValidInput(type))
+            {
+                MessageBox.Show("Поля 'Имя' и 'Тип' не должны содержать специальных символов!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Проверяем, что все поля заполнены
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(type) || string.IsNullOrEmpty(priceText))
             {
@@ -174,6 +139,13 @@ namespace OOP_Exam
             if (!decimal.TryParse(priceText, out decimal price))
             {
                 MessageBox.Show("Цена должна быть числом!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Проверяем, что цена больше нуля
+            if (price <= 0)
+            {
+                MessageBox.Show("Цена должна быть положительным числом больше нуля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -273,7 +245,7 @@ namespace OOP_Exam
                 }
                 else
                 {
-                    MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
@@ -298,6 +270,9 @@ namespace OOP_Exam
                 dataGridView1.Location = new System.Drawing.Point(197, 120);
                 textBox3.Top = textBox2.Bottom;
                 textBox5.Top = textBox3.Bottom;
+                label2.Visible = false;
+                label3.Visible = false;
+                label4.Visible = false;
             }
             else
             {
@@ -308,9 +283,23 @@ namespace OOP_Exam
                 comboBox1.Top = button2.Top + 5;
                 textBox2.Location = new System.Drawing.Point(12, 94);
                 dataGridView1.Location = new System.Drawing.Point(197, 86);
-                textBox3.Top = textBox2.Top + 30;
-                textBox5.Top = textBox3.Top + 30;
+                textBox3.Top = textBox2.Top + 40;
+                textBox5.Top = textBox3.Top + 40;
+                label2.Visible = true;
+                label3.Visible = true;
+                label4.Visible = true;
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // Загрузка данных в DataGridView
+            LoadData();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

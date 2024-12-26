@@ -126,6 +126,8 @@
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
+            this.MaximumSize = new System.Drawing.Size(330, 218);
+            this.MinimumSize = new System.Drawing.Size(300, 218);
             this.Name = "FormEdit";
             this.Text = "Редактирование данных";
             this.ResumeLayout(false);
